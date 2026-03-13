@@ -39,6 +39,68 @@ Then open:
 - The app now returns a clear `503` error on Vercel instead of crashing.
 - For real conversion hosting, deploy to an environment where LibreOffice can be installed (for example: Render, Railway, Fly.io, or your own VPS/Windows/Linux server).
 
+## Fly.io Deployment
+
+This repo now includes a `Dockerfile` that installs LibreOffice, so Fly.io can run the converter correctly.
+
+1. Install Fly CLI:
+
+```powershell
+winget install Fly-io.flyctl
+```
+
+2. Login:
+
+```bash
+fly auth login
+```
+
+3. Launch the app from this project folder:
+
+```bash
+fly launch
+```
+
+When Fly asks questions:
+
+- App name: choose any unique name
+- Region: choose the nearest region
+- PostgreSQL: `No`
+- Redis: `No`
+- Deploy now: `Yes`
+
+4. If Fly asks for the internal port, use:
+
+```text
+3000
+```
+
+5. Open the deployed app:
+
+```bash
+fly open
+```
+
+6. Check logs if something fails:
+
+```bash
+fly logs
+```
+
+Useful commands:
+
+```bash
+fly status
+fly deploy
+fly logs
+```
+
+Health check endpoint:
+
+```text
+/healthz
+```
+
 ## Windows Troubleshooting (`Could not find soffice binary`)
 
 1. Install LibreOffice:

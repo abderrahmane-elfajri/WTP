@@ -60,6 +60,10 @@ const upload = multer({
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/healthz", (req, res) => {
+  res.status(200).json({ ok: true });
+});
+
 app.post("/api/convert", upload.array("wordFiles", MAX_FILES), async (req, res) => {
   if (IS_VERCEL) {
     return res.status(503).json({

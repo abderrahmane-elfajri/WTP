@@ -33,6 +33,12 @@ Then open:
 - Conversion quality depends on LibreOffice.
 - If conversion fails with a `soffice` error, check LibreOffice installation and PATH.
 
+## Vercel Deployment Note
+
+- This project cannot perform Word-to-PDF conversion inside Vercel Serverless Functions because LibreOffice is not available in that runtime.
+- The app now returns a clear `503` error on Vercel instead of crashing.
+- For real conversion hosting, deploy to an environment where LibreOffice can be installed (for example: Render, Railway, Fly.io, or your own VPS/Windows/Linux server).
+
 ## Windows Troubleshooting (`Could not find soffice binary`)
 
 1. Install LibreOffice:

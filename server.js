@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 const fsp = require("fs/promises");
 const multer = require("multer");
 const archiver = require("archiver");
@@ -12,9 +13,11 @@ const libreConvertAsync = promisify(libre.convert);
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MAX_FILES = 100;
+const IS_VERCEL = Boolean(process.env.VERCEL);
 
-const uploadDir = path.join(__dirname, "uploads");
-const outputDir = path.join(__dirname, "output");
+const writableRoot = IS_VERCEL ? os.tmpdir() : __dirname;
+const uploadDir = path.join(writableRoot, "uploads");
+const outputDir = path.join(writableRoot, "output");
 const detectedSofficePath = detectSofficeBinary();
 
 if (detectedSofficePath) {
@@ -58,6 +61,12 @@ const upload = multer({
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/api/convert", upload.array("wordFiles", MAX_FILES), async (req, res) => {
+  if (IS_VERCEL) {
+    return res.status(503).json({
+      error: "This converter needs LibreOffice, which is not available in Vercel Serverless Functions. Deploy this app on a VPS/VM (Render, Railway, Fly.io, or your own server)."
+    });
+  }
+
   const files = req.files || [];
 
   if (!files.length) {
@@ -142,9 +151,13 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+if (!IS_VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
 
 async function cleanupFiles(paths) {
   await Promise.all(

@@ -1,0 +1,109 @@
+:root {
+  --bg-1: #fff3e6;
+  --bg-2: #ffe3d1;
+  --card: #ffffff;
+  --text: #1f2937;
+  --accent: #ff6f3c;
+  --accent-dark: #e45b2c;
+  --border: #ffd0ba;
+  --ok: #1d7f41;
+  --error: #b42318;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top left, var(--bg-1), var(--bg-2));
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.card {
+  width: min(760px, 100%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 14px 30px rgba(31, 41, 55, 0.08);
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.file-label {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+}
+
+input[type="file"] {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.muted {
+  margin: 0.35rem 0;
+  color: #6b7280;
+}
+
+button {
+  margin-top: 0.8rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.75rem 1.2rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--accent-dark);
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.status {
+  margin-top: 1rem;
+  min-height: 1.3rem;
+}
+
+.status.ok {
+  color: var(--ok);
+}
+
+.status.error {
+  color: var(--error);
+}
+
+@media (max-width: 560px) {
+  .card {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+}

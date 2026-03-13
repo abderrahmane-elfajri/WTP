@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word to PDF Batch Converter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <h1>Word to PDF Batch Converter</h1>
+        <p class="subtitle">Upload and convert up to 100 Word files (.doc, .docx) at once.</p>
+
+        <form id="convertForm">
+          <label for="wordFiles" class="file-label">Choose Word files</label>
+          <input id="wordFiles" name="wordFiles" type="file" accept=".doc,.docx" multiple required />
+
+          <p id="fileCount" class="muted">No files selected</p>
+          <p class="muted">Max selected: 100 files</p>
+
+          <button type="submit" id="submitBtn">Convert to PDF ZIP</button>
+        </form>
+
+        <p id="status" class="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
